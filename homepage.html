@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomePage</title>
+</head>
+<body>
+    <div class="background">
+        <div class="navbar">
+        <img src="smol-logo.png" class="logo">
+        <button type="button">Sign up</button>
+    </div>
+    <div class="content">
+        <small>Welcome to</small>
+        <h1>Mars <br> Migration</h1>
+        <button type="button">Take a Tour</button>
+    </div>
+    <div class="side-bar"> 
+<img src="menu.png" class="menu">
+    </div>
+
+    <div class="met">
+        <img src="rock.png">
+        <img src="rock.png">
+        <img src="rock.png">
+        <img src="rock.png">
+        <img src="rock.png">
+        <img src="rock.png">
+        <img src="rock.png">
+        
+    </div>
+    
+</body>
+
+
+<style>
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+.background{
+    background-image: url(homepage.jpg);
+    width: 100%;
+    height: 100vh;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+.logo{
+    width: 100px;
+    cursor: pointer;
+}
+.navbar{
+    width: 85%;
+    height: 15%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+button{
+    color: rgb(238, 234, 233);
+    padding: 10px 25px;
+    background: transparent;
+    border: 1px solid #fff;
+    border-radius: 20px;
+    outline: none;
+    cursor: pointer;
+}
+.content{
+    color: rgb(255, 255, 255);
+    position: absolute;
+       top: 50%;
+       left: 8%;
+       transform: translateY(-50%) ;
+       z-index: 2;
+}
+h1{
+    font-size: 80px;
+    margin: 10px 0 30px;
+    line-height: 80px;
+}
+.side-bar{
+    width: 50px;
+    height: 100vh;
+    background: linear-gradient(#591f1f, #000729);
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0.5;
+}
+.menu{
+    display: block;
+    width: 25px;
+    margin: 40px auto 0;
+    cursor: pointer;
+}
+.met img{
+width: 30px;
+animation: meteor 7s linear infinite;
+}
+.met{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: absolute;
+    top: -70px;
+}
+@keyframes meteor{
+    0%{
+        transform: translateX(0);
+        opacity: 0;
+    }
+    50%{
+       
+        opacity: 1;
+    }
+    70%{
+       
+        opacity: 1;
+    }
+    100%{
+        transform: translateY(+80vh);
+        opacity: 0;
+    }
+}
+.met img:nth-child(1){
+    animation-delay: 2s;
+    width: 25px;
+}
+.met img:nth-child(2){
+    animation-delay: 1s;
+    width: 15px;
+}
+.met img:nth-child(3){
+    animation-delay: 3s;
+    width: 20px;
+}
+.met img:nth-child(4){
+    animation-delay: 4.5s;
+    width: 10px;
+}
+.met img:nth-child(5){
+    animation-delay: 3s;
+    width: 25px;
+}
+.met img:nth-child(6){
+    animation-delay: 6s;
+    width: 22px;
+}
+.met img:nth-child(7){
+    animation-delay: 7s;
+    width: 20px;
+}
+</style>
+
+</html>
