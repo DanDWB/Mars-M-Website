@@ -4,488 +4,85 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomePage</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://kit.fontawesome.com/a165257d25.js" crossorigin="anonymous"></script>
+    <title>Document</title>
 </head>
 <body>
-    <div id="content-wrap">
-            <section class="header">
-             <nav>
-            <a href="index.html"><img src="Images/smol-logo.png"></a>
-            <div class="nav-links">
-            <ul>
-                <li><a href="homepage.html">Home</a></li>
-                <li><a href="">Mission</a></li>
-                <li><a href="index.html">Contact</a></li>
-                <li><a href="">About</a></li>
-            </ul>
-           
-        </div>
-             </nav>
     
+<script>var TxtType = function(el, toRotate, period) {
+    this.toRotate = toRotate;
+    this.el = el;
+    this.loopNum = 0;
+    this.period = parseInt(period, 10) || 2000;
+    this.txt = '';
+    this.tick();
+    this.isDeleting = false;
+};
 
-<script>const typedTextSpan = document.querySelector(".typed-text");
-    const cursorSpan = document.querySelector(".cursor");
-    
-    const textArray = ["hard", "fun", "a journey", "LIFE"];
-    const typingDelay = 200;
-    const erasingDelay = 100;
-    const newTextDelay = 2000; // Delay between current and next text
-    let textArrayIndex = 0;
-    let charIndex = 0;
-    
-    function type() {
-      if (charIndex < textArray[textArrayIndex].length) {
-        if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(type, typingDelay);
-      } 
-      else {
-        cursorSpan.classList.remove("typing");
-          setTimeout(erase, newTextDelay);
-      }
+TxtType.prototype.tick = function() {
+    var i = this.loopNum % this.toRotate.length;
+    var fullTxt = this.toRotate[i];
+
+    if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+    } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
     }
-    
-    function erase() {
-        if (charIndex > 0) {
-        if(!cursorSpan.classList.contains("typing")) cursorSpan.classList.add("typing");
-        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex-1);
-        charIndex--;
-        setTimeout(erase, erasingDelay);
-      } 
-      else {
-        cursorSpan.classList.remove("typing");
-        textArrayIndex++;
-        if(textArrayIndex>=textArray.length) textArrayIndex=0;
-        setTimeout(type, typingDelay + 1100);
-      }
+
+    this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+    var that = this;
+    var delta = 200 - Math.random() * 100;
+
+    if (this.isDeleting) { delta /= 2; }
+
+    if (!this.isDeleting && this.txt === fullTxt) {
+    delta = this.period;
+    this.isDeleting = true;
+    } else if (this.isDeleting && this.txt === '') {
+    this.isDeleting = false;
+    this.loopNum++;
+    delta = 500;
     }
-    
-    document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
-      if(textArray.length) setTimeout(type, newTextDelay + 250);
-    });</script>
 
-    <div class="container">
+    setTimeout(function() {
+    that.tick();
+    }, delta);
+};
 
-                <p>Welcome to <span class="typed-text"></span><span class="cursor">&nbsp;</span></p>
-              
-       
-         
-    </div>
+window.onload = function() {
+    var elements = document.getElementsByClassName('typewrite');
+    for (var i=0; i<elements.length; i++) {
+        var toRotate = elements[i].getAttribute('data-type');
+        var period = elements[i].getAttribute('data-period');
+        if (toRotate) {
+          new TxtType(elements[i], JSON.parse(toRotate), period);
+        }
+    }
+    // INJECT CSS
+    var css = document.createElement("style");
+    css.type = "text/css";
+    css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
+    document.body.appendChild(css);
+};</script>
 
-    <div class="btn">
-        <a href="" class="Btn">Status Report</a>
-    </div>
-         
-    </div>
+    <h1>
+        <a href="" class="typewrite" data-period="2000" data-type='[ "Mars Migration", "A book by Wayne", "A future Sci-fi classic", "The Future" ]'>
+          <span class="wrap"></span>
+        </a>
+      </h1>
+      
 
-         
 
-        <div class="met">
-        <img src="rock.png">
-        <img src="rock.png">
-        <img src="rock.png">
-        <img src="rock.png">
-        <img src="rock.png">
-        <img src="rock.png">
-        <img src="rock.png">
-        
-         </div>
-    </div>
-           
-    
 </body>
 
-
-<style>
-
-
-
-*{
-    margin: 0;
-    padding: 0;
-    font-family: 'Oswald', sans-serif;
-
-}
-
-
-
-.content-wrap {
-  padding-bottom: 2.5rem;    /* Footer height */
-}
-.Creator{
-    color: white;
+<style>body {
+    background-color:#ce3635;
     text-align: center;
-    text-align: center;
-}
+    color:#fff;
+    padding-top:10em;
+  }
+  
+  * { color:#fff; text-decoration: none;}</style>
 
-.container {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container p {
-  font-size: 3rem;
-  padding: 0.5rem;
-  font-weight: bold;
-  letter-spacing: 0.1rem;
-  text-align: center;
-  overflow: hidden;
-}
-.container p span.typed-text {
-  font-weight: normal;
-  color: #dd7732;
-}
-.container p span.cursor {
-  display: inline-block;
-  background-color: #ccc;
-  margin-left: 0.1rem;
-  width: 3px;
-  animation: blink 1s infinite;
-}
-.container p span.cursor.typing {
-  animation: none;
-}
-
-
-
-
-
-.header{
-   
-    width: 100%;
-    background-image: url(Images/homepage.jpg);
-    background-position: center;
-    background-size: cover;
-    position: relative;
-   min-height: 100vh;
-   
-}
-.logo{
-    width: 70px;
-    cursor: pointer;
-}
-.navbar{
-    width: 85%;
-    height: 15%;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.Btn{
-    color: rgb(238, 234, 233);
-    padding: 10px 25px;
-    background: transparent;
-    border: 1px solid #fff;
-    border-radius: 40px;
-    outline: none;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 10px 20px;
-    position: relative;
-}
-.Btn:hover{
-    border: 1px solid rgb(255, 1, 1);
-    background-color: #792620;
-    transition: 1s;
-
-}
-.content{
-    color: rgb(255, 255, 255);
-    position: absolute;
-       top: 50%;
-       left: 8%;
-       transform: translateY(-50%) ;
-       z-index: 2;
-}
-.content h1{
-    font-size: 80px;
-    margin: 10px 0 30px;
-    line-height: 80px;
-}
-
-nav{
-    display: flex;
-    padding: 2% 6%;
-    justify-content: space-between;
-    align-items: center;
-}
-nav img{
-    size: 70px;
-}
-.nav-links{
-    flex: 1;
-    text-align: right;
-}
-.nav-links ul li{
-    list-style: none;
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-}
-.nav-links ul li a{
-    color: white;
-    text-decoration: none;
-    font-size: 13px;
-
-}
-.nav-links ul li::after{
-    content: '';
-    width: 0%;
-    height: 2px;
-    background: #f44336;
-    display: block;
-    margin: auto;
-    transition: 0.5s;
-}
-.nav-links ul li:hover::after{
-   width: 100%;
-}
-.met img{
-width: 30px;
-animation: meteor 7s linear infinite;
-}
-.met{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    position: absolute;
-    top: -70px;
-}
-
-.btn{
-    display: flex;
-    padding-top: 70vh;
-    align-items: center;
-    justify-content: center;
-}
-
-.footer{
-    width: 100%;
-    position: absolute;
-    padding-bottom: 10px;
-    background: rgb(128,10,10);
-    background: linear-gradient(90deg, rgba(128,10,10,1) 0%, rgba(115,21,27,1) 59%, rgba(91,2,31,1) 100%);
-    color: rgb(233, 231, 231);
-    font-size: 13px;
-    line-height: 20px;
-}
-.row{
-    width: 85%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.col{
-    flex-basis: 25%;
-    padding: 10px;
-}
-.col:nth-child(2), .col:nth-child(3){
-    flex-basis: 15%;
-}
-.logo{
-    width: 60px;
-    margin-bottom: 5px;
-    
-}
-.col h3{
-    width: fit-content;
-    margin-bottom: 50px;
-    position: relative;
-}
-ul li{
-    list-style: none;
-    margin-bottom: 12px;
-}
-ul li a{
-    text-decoration: none;
-    color: white;
-}
-form{
-    padding-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 50px;
-}
-form .fa-solid{
-    font-size: 18px;
-    margin-right: 10px;
-}
-form input{
-    width: 100%;
-    background: transparent;
-    color: white;
-    border: 0;
-    outline: none;
-}
-form button{
-    background: transparent;
-    border: 0;
-    outline: none;
-    cursor: pointer; 
-}
-form button .fa-solid{
-    font-size: 16px;
-    color: white;
-}
-.social-links .fa-brands{
-width: 40px;
-height: 40px;
-border-radius: 50%;
-text-align: center;
-line-height: 40px;
-font-size: 20px;
-color: rgb(0, 0, 0);
-background: #fff;
-margin-right: 15px;
-cursor: pointer;
-}
-hr{
-    width: 90%;
-    border: 0;
-    border-bottom: 1px solid white;
-    margin: 20px auto;
-}
-.Creator{
-    text-align: center;
-}
-.Creator .fa-brands{
-margin-left: 20px;
-font-size: 20px;
-color: rgb(255, 255, 255);
-margin-right: 15px;
-cursor: pointer;
-}
-
-.underline{
-    width: 100%;
-    height: 5px;
-    background: #2c2222;
-    border-radius: 3px;
-    position: absolute;
-    top: 25px;
-    left: 0;
-    overflow: hidden;
-}
-.underline span{
-    width: 30px;
-    height: 100%;
-   background: rgb(146, 50, 50);
-    border-radius: 3px;
-    position: absolute;
-    top: 0;
-    left: 10px;
-    animation: moving 2s linear infinite;
-}
-
-
-@keyframes moving{
-    0%{
-        left: -20px;
-    }
-    100%{
-        left: 100%;
-    }
-
-}
-@keyframes blink {
-  0%  { background-color: #ccc; }
-  49% { background-color: #ccc; }
-  50% { background-color: transparent; }
-  99% { background-color: transparent; }
-  100%  { background-color: #ccc; }
-}
-
-@keyframes meteor{
-    0%{
-        transform: translateX(0);
-        opacity: 0;
-    }
-    50%{
-       
-        opacity: 1;
-    }
-    70%{
-       
-        opacity: 1;
-    }
-    100%{
-        transform: translateY(+80vh);
-        opacity: 0;
-    }
-}
-.met img:nth-child(1){
-    animation-delay: 2s;
-    width: 25px;
-}
-.met img:nth-child(2){
-    animation-delay: 1s;
-    width: 15px;
-}
-.met img:nth-child(3){
-    animation-delay: 3s;
-    width: 20px;
-}
-.met img:nth-child(4){
-    animation-delay: 4.5s;
-    width: 10px;
-}
-.met img:nth-child(5){
-    animation-delay: 3s;
-    width: 25px;
-}
-.met img:nth-child(6){
-    animation-delay: 6s;
-    width: 22px;
-}
-.met img:nth-child(7){
-    animation-delay: 7s;
-    width: 20px;
-}
-@media(max-width: 700px){
-.content h1{
-    font-size: 30px;
-    line-height: 30px;
-}
-
-footer{
-        bottom: unset;
-    }
-    .col{
-    flex-basis: 100%;
-    
-}
-.col:nth-child(2), .col:nth-child(3){
-    flex-basis: 100%;
-}
-
-small{
-    font-size: 10px;
-}
-.nav-links ul li{
-    display: block;
-}
-.nav-links{
-    position: absolute;
-    background: #f44336;
-    height: 100vh;
-    width: 200px;
-    top: 0;
-    right: 0;
-    text-align: left;
-    z-index: 2;
-}
-}
-</style>
 
 </html>
